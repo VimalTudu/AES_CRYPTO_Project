@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.ImageIcon;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.ActionListener;
@@ -13,6 +14,7 @@ public class MyFrame extends JFrame implements ActionListener {
 
     JMenu fileMenu, jcryptMenu, infoMenu;
     JMenuItem openFileItem, saveItem, exitItem;
+    ImageIcon openFileIcon, saveItemIcon, exitIcon;
 
     public MyFrame() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -32,15 +34,25 @@ public class MyFrame extends JFrame implements ActionListener {
         jcryptMenu = new JMenu("JCrypt");
         infoMenu = new JMenu("Info");
 
-        // Menu - Items for fileMenu
+        // Menu-Items for fileMenu
         openFileItem = new JMenuItem("Open");
         saveItem = new JMenuItem("Save");
         exitItem = new JMenuItem("Exit");
+
+        // Icons for File-Menu-Itenms
+        openFileIcon = new ImageIcon("D:\\codes\\JAVA-CRYPROGRAPHY\\01_AES_EXAMPLE\\icons\\open.png");
+        saveItemIcon = new ImageIcon("D:\\codes\\JAVA-CRYPROGRAPHY\\01_AES_EXAMPLE\\icons\\save.png");
+        exitIcon = new ImageIcon("D:\\codes\\JAVA-CRYPROGRAPHY\\01_AES_EXAMPLE\\icons\\exit.png");
 
         // actionListeners
         openFileItem.addActionListener(this);
         saveItem.addActionListener(this);
         exitItem.addActionListener(this);
+
+        // set icons for file Menu
+        openFileItem.setIcon(openFileIcon);
+        saveItem.setIcon(saveItemIcon);
+        exitItem.setIcon(exitIcon);
 
         // adinng shortcuts for the menu in menu-bar
         fileMenu.setMnemonic(KeyEvent.VK_F);   // Alt + F for File-menu
