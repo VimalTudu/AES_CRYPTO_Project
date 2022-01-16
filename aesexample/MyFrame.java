@@ -19,6 +19,10 @@ import java.awt.event.KeyEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+// ###############################################################################
+// END OF IMPORTS
+// ###############################################################################
+
 public class MyFrame extends JFrame implements ActionListener {
 
     String backgroundImagePath = "";
@@ -36,6 +40,8 @@ public class MyFrame extends JFrame implements ActionListener {
     ImageIcon backgroundImage;
 
     JLabel background;
+
+    // ################################################################# end-private-member-declarations
 
     public MyFrame() {
         
@@ -57,6 +63,8 @@ public class MyFrame extends JFrame implements ActionListener {
         
         this.setVisible(true);
     }
+
+    // ################################################################ end MyFrame Default Constructor
 
     // MenuBar
     private JMenuBar createMenuBar() {
@@ -108,6 +116,7 @@ public class MyFrame extends JFrame implements ActionListener {
         return menuBar;
     }
 
+    // #################################################################### end-createBar memeber function
 
     // ActionListener - overriding the abstract method
     @Override
@@ -146,6 +155,7 @@ public class MyFrame extends JFrame implements ActionListener {
         }
     }
 
+    // ############################################################################# end of actionPerformed functions
 
     // get project file paths
     void getProjectFilePaths() {
@@ -157,4 +167,6 @@ public class MyFrame extends JFrame implements ActionListener {
         saveFileIconPath = path + "/icons/save.png";
         exitFileIconPath = path + "/icons/exit.png";
     }
+
+    // ############################################################################ end of getProjectFilePaths member function
 }
