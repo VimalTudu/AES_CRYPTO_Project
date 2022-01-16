@@ -1,25 +1,56 @@
 package aesexample;
 
+import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.imageio.ImageReader;
 import javax.swing.ImageIcon;
+import javax.imageio.ImageIO;
+import javax.swing.JFileChooser;
 
+import java.awt.image.BufferedImage;
 import java.awt.event.KeyEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class MyFrame extends JFrame implements ActionListener {
 
+    String backgroundImagePath = "";
+    String openFileIconPath = "";
+    String saveFileIconPath = "";
+    String exitFileIconPath = "";
+
+    final int windowHeight = 600;
+    final int windowWidth = 800;
+
     JMenu fileMenu, jcryptMenu, infoMenu;
     JMenuItem openFileItem, saveItem, exitItem;
+    
     ImageIcon openFileIcon, saveItemIcon, exitIcon;
+    ImageIcon backgroundImage;
+
+    JLabel background;
 
     public MyFrame() {
+        
+        getProjectFilePaths();  // get the path for the files
+
+        backgroundImage = new ImageIcon(backgroundImagePath);
+
+        background = new JLabel("", backgroundImage, JLabel.CENTER);
+        background.setBounds(0, 0, windowWidth, windowHeight);
+
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setTitle("AES - (Java Cryptography)");
-        this.setSize(800, 600);
+        this.setSize(windowWidth, windowHeight);
+        
+        this.add(background);
 
         JMenuBar menuBar = createMenuBar();
         this.setJMenuBar(menuBar);
@@ -40,9 +71,9 @@ public class MyFrame extends JFrame implements ActionListener {
         exitItem = new JMenuItem("Exit");
 
         // Icons for File-Menu-Itenms
-        openFileIcon = new ImageIcon("D:\\codes\\JAVA-CRYPROGRAPHY\\01_AES_EXAMPLE\\icons\\open.png");
-        saveItemIcon = new ImageIcon("D:\\codes\\JAVA-CRYPROGRAPHY\\01_AES_EXAMPLE\\icons\\save.png");
-        exitIcon = new ImageIcon("D:\\codes\\JAVA-CRYPROGRAPHY\\01_AES_EXAMPLE\\icons\\exit.png");
+        openFileIcon = new ImageIcon(openFileIconPath);
+        saveItemIcon = new ImageIcon(saveFileIconPath);
+        exitIcon = new ImageIcon(exitFileIconPath);
 
         // actionListeners
         openFileItem.addActionListener(this);
@@ -84,6 +115,14 @@ public class MyFrame extends JFrame implements ActionListener {
         
         if (action.getSource() == openFileItem) {
             System.out.println("Open a file");
+            
+            JFileChooser fileChooser = new JFileChooser();
+            
+            int response = fileChooser.showOpenDialog(null); // select file to open
+            if (response == JFileChooser.APPROVE_OPTION) {
+                File file = new File(fileChooser.getSelectedFile().getAbsolutePath());
+                System.out.println(file);
+            }
         }
 
         if (action.getSource() == exitItem) {
@@ -93,6 +132,29 @@ public class MyFrame extends JFrame implements ActionListener {
 
         if (action.getSource() == saveItem) {
             System.out.println("Save Item");
+
+            JFileChooser fileChooser = new JFileChooser(); 
+
+            // fileChooser.setCurrentDirectory(new File("C:\\Users\\Sapan\\Desktop"));
+
+            int response = fileChooser.showSaveDialog(null);
+
+            if (response == JFileChooser.APPROVE_OPTION) {
+                File file = new File(fileChooser.getSelectedFile().getAbsolutePath());
+                System.out.println(file);
+            }
         }
+    }
+
+
+    // get project file paths
+    void getProjectFilePaths() {
+        Path currenRelativePath = Paths.get("");
+        String path = currenRelativePath.toAbsolutePath().toString();
+
+        backgroundImagePath = path + "/icons/background.jpg";
+        openFileIconPath = path + "/icons/open.png";
+        saveFileIconPath = path + "/icons/save.png";
+        exitFileIconPath = path + "/icons/exit.png";
     }
 }
